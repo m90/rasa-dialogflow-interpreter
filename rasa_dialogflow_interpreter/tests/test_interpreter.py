@@ -48,15 +48,21 @@ class MockSessionsClient:
         return '{}-{}'.format(project_id, session_id)
 
     def detect_intent(self, session=None, query_input=None):
-        return {
-            'query_result': {
-                'query_text': 'Hello human',
-                'intent': {
-                    'display_name': 'welcome',
-                },
-                'intent_detection_confidence': 0.85,
-            },
-        }
+        class MockResult():
+            def __init__(self, query_text, intent, confidence):
+                self.query_result = MockQueryResult(query_text, intent, confidence)
+
+        class MockIntent():
+            def __init__(self, intent):
+                self.display_name = intent
+
+        class MockQueryResult():
+            def __init__(self, query_text, intent, confidence):
+                self.query_text = query_text
+                self.intent = MockIntent(intent)
+                self.intent_detection_confidence = confidence
+
+        return MockResult('Hello bot', 'welcome', 0.85)
 
 
 class TestInterpreter(unittest.TestCase):
@@ -80,3 +86,10 @@ class TestInterpreter(unittest.TestCase):
 
         self.assertEqual(interpreter.project_id, 'my-dflow-projjy')
         self.assertEqual(interpreter.language_code, 'en')
+
+    def test_parse(self):
+        interpreter = DialogflowInterpreter(
+            project_id='my-dflow-projjy')
+        result = interpreter.parse('Oi!')
+        self.assertEqual(result['text'], 'Hello bot')
+
