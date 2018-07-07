@@ -52,10 +52,10 @@ class DialogflowInterpreter(NaturalLanguageInterpreter):
 
         query_input = dialogflow.types.QueryInput(text=text_input)
 
-        response = self.session_client.detect_intent(
-            session=session, query_input=query_input)
-
-        if not response:
+        try:
+            response = self.session_client.detect_intent(
+                session=session, query_input=query_input)
+        except:
             return build_response(text)
 
         return build_response(
