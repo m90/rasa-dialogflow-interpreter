@@ -18,9 +18,9 @@ def build_response(msg, intent=None, entities=None):
     }
 
 
-class DialogFlowInterpreter(NaturalLanguageInterpreter):
+class DialogflowInterpreter(NaturalLanguageInterpreter):
     """
-    DialogFlowInterpreter is an Interpreter for use in rasa_core that
+    DialogflowInterpreter is an Interpreter for use in rasa_core that
     performs Natural Language processing using dialogflow API v2
     """
     def __init__(self, project_id=None, service_account_json=None, language_code='en'):

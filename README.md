@@ -1,4 +1,28 @@
 # rasa-dialogflow-interpreter
-> RasaCore interpreter connecting to dialogflow.com API v2
+> rasa_core interpreter connecting to dialogflow.com API v2
 
-WIP - **do not use**
+A `rasa_core` [Interpreter](https://core.rasa.com/interpreters.html) that sources intent data from dialogflow.com API v2. This means you can run `rasa_core` and do Natural Language Understanding using Dialogflow.
+
+## Usage
+
+```py
+from rasa_dialogflow_interpreter.interpreter import DialogflowInterpreter
+from rasa_core.agent import Agent
+
+agent = Agent.load(
+    'path/to/dialogue/models',
+    interpreter=DialogflowInterpreter(
+        'dialogflow-project-name',
+        # if you omit the `service_account_json` parameter the value
+        # exported to GOOGLE_APPLICATION_CREDENTIALS will be used instead
+        service_account_json='dialogflow-project-name.json'
+    ))
+
+msg = agent.handle_message('Hello DialogFlow!')
+```
+
+Note that due to the way that Dialogflow works, the returned `entities` will currently always be empty.
+
+### License
+MIT © [Frederik Ring](http://www.frederikring.com)
+
