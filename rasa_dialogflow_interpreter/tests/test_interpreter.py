@@ -13,13 +13,15 @@ class TestBuildResponse(unittest.TestCase):
                 'name': 'greet',
                 'confidence': 0.8,
             },
-            'entities': [],
+            'entities': [{'entity': 'cash', 'value': 10.0, 'start': 0, 'end': 0}],
         }
         result = build_response(
             'hello people', intent={
                 'name': 'greet',
                 'confidence': 0.8,
-            }, entities=[])
+            }, entities={
+                'cash': 10.0,
+            })
 
         self.assertDictEqual(expected, result)
 
@@ -61,6 +63,7 @@ class MockSessionsClient:
                 self.query_text = query_text
                 self.intent = MockIntent(intent)
                 self.intent_detection_confidence = confidence
+                self.parameters = {}
 
         return MockResult('Hello bot', 'welcome', 0.85)
 

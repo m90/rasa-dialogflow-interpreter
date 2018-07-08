@@ -2,23 +2,36 @@ from string import ascii_lowercase
 from random import choice
 
 import dialogflow
-from rasa_core.interpreter import NaturalLanguageInterpreter
+from rasa_core.interpreter import RegexInterpreter
 from google.oauth2.service_account import Credentials
 
+
+def build_entity(key, value):
+    return {
+        'entity': key,
+        'value': value,
+        'start': 0,
+        'end': 0,
+    }
 
 def build_response(msg, intent=None, entities=None):
     """
     build_response builds a rasa_core compatible dict using
     the given message, intent and list of entities
     """
+    out_entities = []
+    if entities is not None:
+        for key, value in entities.items():
+            out_entities.append(build_entity(key, value))
+
     return {
         'text': msg,
         'intent': intent,
-        'entities': entities if entities is not None else [],
+        'entities': out_entities,
     }
 
 
-class DialogflowInterpreter(NaturalLanguageInterpreter):
+class DialogflowInterpreter(RegexInterpreter):
     """
     DialogflowInterpreter is an Interpreter for use in rasa_core that
     performs Natural Language processing using dialogflow API v2
@@ -62,4 +75,4 @@ class DialogflowInterpreter(NaturalLanguageInterpreter):
             response.query_result.query_text, intent={
                 'name': response.query_result.intent.display_name,
                 'confidence': response.query_result.intent_detection_confidence,
-            })
+            }, entities=response.query_result.parameters)

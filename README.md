@@ -22,7 +22,7 @@ agent = Agent.load(
 msg = agent.handle_message('Hello Dialogflow!')
 ```
 
-Note that due to the way that Dialogflow currently works, the returned `entities` will currently always be empty.
+Note that due to the way that Dialogflow currently works, the returned `entities` will not have `start` and `end` values.
 
 ### License
 MIT © [Frederik Ring](http://www.frederikring.com)
