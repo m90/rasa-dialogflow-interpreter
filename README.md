@@ -4,6 +4,14 @@
 
 A `rasa_core` [Interpreter](https://core.rasa.com/interpreters.html) that sources intent data from dialogflow.com API v2. This means you can run `rasa_core` and do Natural Language Understanding using Dialogflow.
 
+## Installation
+
+Install using pip:
+
+```
+pip install rasa-dialogflow-interpreter
+```
+
 ## Usage
 
 ```py
