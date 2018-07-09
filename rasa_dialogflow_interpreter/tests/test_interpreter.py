@@ -2,7 +2,19 @@ import unittest
 
 import dialogflow
 
-from rasa_dialogflow_interpreter.interpreter import build_response, DialogflowInterpreter
+from rasa_dialogflow_interpreter.interpreter import build_response, build_entity, DialogflowInterpreter
+
+
+class TestBuildEntity(unittest.TestCase):
+    def test_default(self):
+        expected = {
+            'entity': 'things',
+            'value': 'many',
+            'start': 0,
+            'end': 0,
+        }
+        result = build_entity('things', 'many')
+        self.assertDictEqual(expected, result)
 
 
 class TestBuildResponse(unittest.TestCase):
@@ -42,7 +54,7 @@ class TestBuildResponse(unittest.TestCase):
         self.assertDictEqual(expected, result)
 
 
-class MockSessionsClient:
+class MockSessionsClient(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         pass
 

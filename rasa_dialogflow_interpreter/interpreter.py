@@ -7,12 +7,17 @@ from google.oauth2.service_account import Credentials
 
 
 def build_entity(key, value):
+    """
+    build_entity return a dict that can be passed back to rasa as an entity
+    using the given string key and value
+    """
     return {
         'entity': key,
         'value': value,
         'start': 0,
         'end': 0,
     }
+
 
 def build_response(msg, intent=None, entities=None):
     """
