@@ -25,7 +25,10 @@ class TestBuildResponse(unittest.TestCase):
                 'name': 'greet',
                 'confidence': 0.8,
             },
-            'entities': [{'entity': 'cash', 'value': 10.0, 'start': 0, 'end': 0}],
+            'entities': [
+                {'entity': 'cash', 'value': 10.0, 'start': 0, 'end': 0},
+                {'entity': 'money', 'value': 20.0, 'start': 0, 'end': 0},
+            ],
         }
         result = build_response(
             'hello people', intent={
@@ -33,6 +36,7 @@ class TestBuildResponse(unittest.TestCase):
                 'confidence': 0.8,
             }, entities={
                 'cash': 10.0,
+                'money': 20.0,
             })
 
         self.assertDictEqual(expected, result)
