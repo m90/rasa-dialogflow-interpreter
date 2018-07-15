@@ -69,7 +69,7 @@ class DialogflowInterpreter(RegexInterpreter):
             )
         except Exception as e:
             logger.error(
-                "Failed to parse text '{}' using rasa NLU over http. "
+                "Failed to parse text '{}' using dialogflow API v2. "
                 "Error: {}".format(text, e)
             )
             return build_response(text)

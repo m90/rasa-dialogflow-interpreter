@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="rasa_dialogflow_interpreter",
-    version="0.1.1",
+    version="0.1.2",
     author="Frederik Ring",
     author_email="frederik.ring@gmail.com",
     description="rasa_core interpreter connecting to dialogflow.com API v2",
