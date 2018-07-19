@@ -24,7 +24,9 @@ def build_response(msg, intent=None, entities=None):
     """
     out_entities = []
     if entities is not None:
-        out_entities = [build_entity(key, value) for (key, value) in entities.items()]
+        out_entities = [
+            build_entity(key, value) for (key, value) in entities.items() if value
+        ]
 
     return {"text": msg, "intent": intent if intent else {}, "entities": out_entities}
 

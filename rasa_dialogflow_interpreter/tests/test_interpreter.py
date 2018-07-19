@@ -29,7 +29,7 @@ class TestBuildResponse(unittest.TestCase):
         result = build_response(
             "hello people",
             intent={"name": "greet", "confidence": 0.8},
-            entities={"cash": 10.0, "money": 20.0},
+            entities={"cash": 10.0, "money": 20.0, "void": ""},
         )
 
         self.assertDictEqual(expected, result)
