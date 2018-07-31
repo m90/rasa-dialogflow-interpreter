@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="rasa_dialogflow_interpreter",
-    version="0.1.3",
+    version="0.1.4",
     author="Frederik Ring",
     author_email="frederik.ring@gmail.com",
     description="rasa_core interpreter connecting to dialogflow.com API v2",
@@ -13,7 +13,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/m90/rasa-dialogflow-interpreter",
     packages=["rasa_dialogflow_interpreter"],
-    install_requires=["dialogflow==0.4", "rasa-core==0.9"],
+    install_requires=["dialogflow~=0.4", "rasa-core~=0.9"],
     classifiers=(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
