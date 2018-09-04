@@ -1,2 +1,2 @@
 dialogflow==0.4.0
-rasa-core==0.9.7
+rasa-core~=0.11
