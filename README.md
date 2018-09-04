@@ -27,7 +27,7 @@ agent = Agent.load(
         service_account_json='dialogflow-project-name.json',
     ))
 
-msg = agent.handle_message('Hello Dialogflow!')
+msg = agent.handle_text('What does it all mean, Dialogflow?')
 ```
 
 Note that due to the way that Dialogflow currently works, the returned `entities` will not have `start` and `end` values.
