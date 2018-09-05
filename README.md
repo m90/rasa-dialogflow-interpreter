@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/m90/rasa-dialogflow-interpreter.svg?branch=master)](https://travis-ci.org/m90/rasa-dialogflow-interpreter)
 > rasa_core interpreter connecting to dialogflow.com API v2
 
-A `rasa_core` [Interpreter](https://core.rasa.com/interpreters.html) that sources intent data from dialogflow.com API v2. This means you can run `rasa_core` and do Natural Language Understanding using Dialogflow.
+A `rasa_core` [Interpreter](http://rasa.com/docs/core/api/interpreter/) that sources intent data from dialogflow.com API v2. This means you can run `rasa_core` and do Natural Language Understanding using Dialogflow.
 
 ## Installation
 
