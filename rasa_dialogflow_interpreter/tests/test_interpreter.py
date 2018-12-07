@@ -6,7 +6,10 @@ from rasa_dialogflow_interpreter.interpreter import (
     build_response,
     build_entity,
     DialogflowInterpreter,
+    UpstreamError
 )
+from google.api_core.exceptions import GoogleAPICallError
+
 
 
 class TestBuildEntity(unittest.TestCase):
@@ -46,7 +49,7 @@ class TestBuildResponse(unittest.TestCase):
         self.assertDictEqual(expected, result)
 
 
-class MockSessionsClient(unittest.TestCase):
+class MockSessionsClient:
     def __init__(self, *args, **kwargs):
         pass
 
@@ -70,6 +73,11 @@ class MockSessionsClient(unittest.TestCase):
                 self.parameters = {}
 
         return MockResult("Hello bot", "welcome", 0.85)
+
+
+class FailingMockSessionsClient(MockSessionsClient):
+    def detect_intent(self, session=None, query_input=None):
+        raise GoogleAPICallError("Did not work")
 
 
 class TestInterpreter(unittest.TestCase):
@@ -98,3 +106,24 @@ class TestInterpreter(unittest.TestCase):
         interpreter = DialogflowInterpreter(project_id="my-dflow-projjy")
         result = interpreter.parse("Oi!")
         self.assertEqual(result["text"], "Hello bot")
+
+
+class TestInterpreterWithFailingClient(unittest.TestCase):
+    def setUp(self):
+        self._sessions_client = dialogflow.SessionsClient
+        dialogflow.SessionsClient = FailingMockSessionsClient
+
+    def tearDown(self):
+        dialogflow.SessionsClient = self._sessions_client
+
+    def test_parse_swallow(self):
+        interpreter = DialogflowInterpreter(project_id="my-dflow-projjy")
+        result = interpreter.parse("Oi!")
+        self.assertEqual(result["text"], "Oi!")
+
+    def test_parse_reraise(self):
+        interpreter = DialogflowInterpreter(
+            project_id="my-dflow-projjy", raise_on_error=True
+        )
+        with self.assertRaises(UpstreamError):
+            interpreter.parse("Oi!")
