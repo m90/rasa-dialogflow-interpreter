@@ -72,7 +72,7 @@ class DialogflowInterpreter(RegexInterpreter):
 
         session = self.session_client.session_path(self.project_id, session_id)
         text_input = dialogflow.types.TextInput(
-            text=text, language_code=self.language_code
+            text=text[:256], language_code=self.language_code
         )
 
         query_input = dialogflow.types.QueryInput(text=text_input)
