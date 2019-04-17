@@ -6,10 +6,9 @@ from rasa_dialogflow_interpreter.interpreter import (
     build_response,
     build_entity,
     DialogflowInterpreter,
-    UpstreamError
+    UpstreamError,
 )
 from google.api_core.exceptions import GoogleAPICallError
-
 
 
 class TestBuildEntity(unittest.TestCase):
