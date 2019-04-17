@@ -48,10 +48,12 @@ class DialogflowInterpreter(RegexInterpreter):
         service_account_json=None,
         language_code="en",
         raise_on_error=False,
+        flip_text_and_intent=False,
     ):
         self.project_id = project_id
         self.language_code = language_code
         self.raise_on_error = raise_on_error
+        self.flip_text_and_intent = flip_text_and_intent
 
         credentials = None
         if service_account_json:
@@ -94,7 +96,9 @@ class DialogflowInterpreter(RegexInterpreter):
         return build_response(
             response.query_result.query_text,
             intent={
-                "name": response.query_result.intent.display_name,
+                "name": response.query_result.intent.display_name
+                if not self.flip_text_and_intent
+                else response.query_result.fulfillment_text,
                 "confidence": response.query_result.intent_detection_confidence,
             },
             entities=response.query_result.parameters,
